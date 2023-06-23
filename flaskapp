@@ -1,0 +1,800 @@
+from flask import Flask, render_template, request, redirect, flash
+from os import urandom
+import requests
+import datetime
+import os
+
+
+os.environ['HTTP_PROXY'] = 'http://144.21.50.41:3128'
+os.environ['HTTPS_PROXY'] = 'http://144.21.50.41:3128'
+
+app = Flask(__name__)
+app.secret_key = urandom(16)
+
+today = datetime.date.today().strftime("%Y%m%d")
+
+value = "20230502"
+
+# Step 1: Get today's date
+today = datetime.date.today()
+
+# Step 2: Extract the day from today's date
+day = today.day
+
+# Step 3: Format the day as a two-digit string
+formatted_day = '{:02d}'.format(day)
+
+# Step 4: Replace the last two digits of the original value with the formatted day
+new_value = value[:-2] + formatted_day
+
+
+
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        option = request.form.get('option')
+
+        if option == 'option1':
+            # Option 1 logic
+            s = requests.Session()
+
+            headers = {
+                'accept': 'application/json, text/javascript, */*; q=0.01',
+                'accept-encoding': 'gzip, deflate, br',
+                'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
+                'content-length': '632',
+                'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'origin': 'https://wwwapps.ups.com',
+                'cookie':"com.ups.pickup.cb.sData=f2bf6b3bf6af4afdbc2153a16e504041:Z5Q9EMAjwcC1JdlU2+zLjEvQ88SmsvfBZWw0AgF8fp0=; _abck=826F3F15BCB0FF04FC898E16C50EBAD7~-1~YAAQPIlJF7Vur96IAQAAyxUQ6QpHIWna0ivEI+DSfa2L4XMFHycSsG9XhQ4WdYVvlhW7n+GPzKckLK7W8r2yXlYu6teeaCppJebkZHp6xs9+FA6o3+WMBZXF5Z88AtiLw+emJrZ0P/N8YWjIjzUbI1hgJ4CZw/CvpovOmydFBfLUdJSy8hsTgm2Q2+oi25vxJzJvTo/yNzJNX2YZE9RIXIBctlVJOORPTJM6aKAJXAg+WQCctguycMRtfBQ80oWwMrFaDYkQwNTY6eKGlqvuOr9VvuN7H5JwRF4n2p4TcowCCuaJk697BE3vN1MHU7qIJJsS6gycJApvyfeietPUBoRhethfASQyQxzl8uO+k4yI80xKQok=~-1~-1~1687540922; ak_bmsc=AE618D16E2F8300CF10996A19FB0853F~000000000000000000000000000000~YAAQPIlJF7Zur96IAQAAyxUQ6RS1A0fuyG1V9JyEoqBoug2CH10u0qpLnD0VLNgkbaCfkS6x2h2HUe2R34miB93DyLwD9Cm3h4sK3ou4lc9aOLK5Ev7aTs4v5yDPPM650bOuuet0AbJ9ZLOa4dFeuPS4RWKedxGpCzTGkizlBfUFTqSj8Se35+xNmRW4uETJGrhPI3DwmcO0tkbZfOhSbn0oiR+NslCQOaZlh5uj9TUw+llxrnwytMTiceEWN79fs1ddq1zHSX7r3oi7DwzRUOz0l2G4kX5qpBA7rDQAdVRAY7QjlS4JkRN6iuFFDFowW8I3yOMWobDhTgClOWK0V7T4bNCNlYxarcC9TXclH807pULqa5vcIA==; bm_sv=A7BEB585F5E3B45831BA5A948C9D8B61~YAAQOT4SAtHzdt6IAQAAOOIa6RRFFtGoLYzptjebs08p9Nf7Aw6rSDweWrxpKlB1TX+df5RCPAuR+lhJtY74VyNpR6g2c+my0+9RVo0Bry0xEec36z9GcuK7yxiVIZqhqOf4eL906cHl+dnm7zgqQPGCTP0dE4mRUI9Z83+URq0BPsHxVgwtAgguBMpUE2IEhzg8MQkXTo8piEWhGlxoZmaSkYsgh0W9fXJ4WE+wVwxcYnRkW8lWJpg+UCel~1; bm_sz=0403C8DC949CBA3B56D80F5F3503F27F~YAAQPIlJF7dur96IAQAAyxUQ6RTqc1aUScxApvlvCVx/l0unm3DtlGcfdue/yvmBGI4tYbsEVqb0aOsGhaa0D27zGC4WKs+QJQrYb1t7dEpGmlOgxUKcaojNaRsDFWhsB9+IRNMr6IJkFJdJLog0oyn7QaCivioB3AyecN37Dz9QgVGSQGZOeOU1AV19CkEcgY/7uKD6qdWte0W7f40/l3lVOJzp+RNc+ZHejFEzAlELUToAZh4bHCH1VmjQh8FlHvHnKtCGsi8A5qAGBEz69FCjzBFVT2EzhclWY88RfNQ=~3159862~3485751",
+                'referer': 'https://wwwapps.ups.com/pickup/schedule?loc=en_GB',
+                'sec-ch-ua': '"Chromium";v="104", " Not A;Brand";v="99", "Google Chrome";v="104"',
+                'sec-ch-ua-mobile': '?0',
+                'sec-ch-ua-platform': '"macOS"',
+                'sec-fetch-dest': 'empty',
+                'sec-fetch-mode': 'cors',
+                'sec-fetch-site': 'same-origin',
+                'user-agent': 'PostmanRuntime/7.32.3',
+                'x-requested-with': 'XMLHttpRequest',
+                'host':'wwwapps.ups.com'
+            }
+
+            numberOfPackages = request.form.get('numberOfPackages', '1')
+            weight = request.form.get('weight', '1')
+
+            payload = {
+                "loc": "en_GB",
+                "gotoapp": "",
+                "acctInfoDetails": "",
+                "pickupInfoPageScheme": "",
+                "spbPageSchemeSelection": None,
+                "selectedServices": None,
+                "EDITABLE_ACCTNUM": "FALSE",
+                "localeValue": "en_GB",
+                "showPopup": False,
+                "facclosed": False,
+                "destslic": None,
+                "radioShipping": "Y",
+                "tracknumlist": "",
+                "accountnumber": "",
+                "paramAcctZip": "",
+                "company": "Saddiq Iqbal",
+                "custname": "",
+                "address": "1A Montague Road, 5 Carrington House",
+                "room": "",
+                "ROOM": "",
+                "floor": "",
+                "FLOOR": "",
+                "pd2": "London",
+                "pd1": "",
+                "postalcode": "SW191TZ",
+                "phone": "07584425769",
+                "extension": "",
+                "addrSuggestRadio": "",
+                "repl_name": "",
+                "numberOfPackages":numberOfPackages,
+                "weight":weight,
+                "numberOfPallets": "1",
+                "palletweight": "",
+                "pallettotweight": "1",
+                "length": "",
+                "width": "",
+                "height": "",
+                "palletSizeOpts": "0",
+                "paramServices": "007#002",
+                "radioWeight70": "N",
+                "radioComDocs": "N",
+                "exppickup": "0",
+                "dropoffdate": new_value,
+                "dropHour": "11",
+                "dropMin": "00",
+                "dropAMPM": "AM",
+                "pickupdate": new_value,
+                "readyHours": "12",
+                "readyMinutes": "0",
+                "readyAMPM": "PM",
+                "closeHours": "4",
+                "closeMinutes": "0",
+                "closeAMPM": "PM",
+                "pickuppoint": "Front Door",
+                "paramPickupReference": "",
+                "specialinstructions": "",
+                "expdeliver": "0",
+                "dc1": "",
+                "phoneList": "0",
+                "email1": "saddiq@hotmail.de",
+                "email2": "",
+                "email3": "",
+                "email4": "",
+                "email5": "",
+                "emailmessage": "",
+                "failedemail": ""
+            }
+
+            response = s.post("https://wwwapps.ups.com/pickup/api/service/validate/create", data=payload, headers=headers)
+
+            if response.status_code == 200:
+                print("UPS Collection Info Added...")
+            else:
+                print("Failed to book UPS collection. Status Code:", response.status_code)
+                print("Response:", response.text)
+
+            payload = {
+                'loc': 'en_GB',
+                'gotoapp': '',
+                'acctInfoDetails': '',
+                'pickupInfoPageScheme': '',
+                'spbPageSchemeSelection': None,
+                'selectedServices': None,
+                'EDITABLE_ACCTNUM': 'FALSE',
+                'localeValue': 'en_GB',
+                'showPopup': False,
+                'facclosed': False,
+                'destslic': None,
+                'radioShipping': 'Y',
+                'tracknumlist': '',
+                'accountnumber': '',
+                'paramAcctZip': '',
+                'company': 'Saddiq Iqbal',
+                'custname': '',
+                'address': "1A Montague Road, 5 Carrington House",
+                'room': '',
+                'ROOM': '',
+                'floor': '',
+                'FLOOR': '',
+                'pd2': 'London',
+                'pd1': '',
+                'postalcode': 'SW191TZ',
+                'phone': "07584425769",
+                'extension': '',
+                'addrSuggestRadio': '',
+                'repl_name': '',
+                'numberOfPackages':numberOfPackages,
+                'weight':weight,
+                'numberOfPallets': "1",
+                'palletweight': '',
+                'pallettotweight': '1',
+                'length': '',
+                'width': '',
+                'height': '',
+                'palletSizeOpts': "0",
+                'paramServices': '007#002',
+                'radioWeight70': 'N',
+                'radioComDocs': 'N',
+                'exppickup': "0",
+                'dropoffdate': new_value,
+                'dropHour': "11",
+                'dropMin': '00',
+                'dropAMPM': 'AM',
+                'pickupdate': new_value,
+                'readyHours': "12",
+                'readyMinutes': '0',
+                'readyAMPM': 'PM',
+                'closeHours': "4",
+                'closeMinutes': '0',
+                'closeAMPM': 'PM',
+                'pickuppoint': 'Front Door',
+                'paramPickupReference': '',
+                'specialinstructions': '',
+                'expdeliver': "0",
+                'dc1': '',
+                'phoneList': "0",
+                'email1': "saddiq@hotmail.de",
+                'email2': '',
+                'email3': '',
+                'email4': '',
+                'email5': '',
+                'emailmessage': '',
+                'failedemail': ''
+            }
+
+            response = s.post("https://wwwapps.ups.com/pickup/processinfo?loc=en_GB", data=payload, headers=headers)
+
+            if response.status_code == 200:
+                print("UPS details confirmed...!")
+            else:
+                print("Failed to complete UPS collection. Status Code:", response.status_code)
+                print("Response:", response.text)
+
+            payload = {
+                "loc": "en_GB",
+                "initiatingPage": "verification",
+                "email1opt": 'true',
+                "addToAddressBook": 'false',
+                "email2opt": 'true',
+                "SUBMIT_BUTTON": "Next"
+            }
+
+            response = s.post("https://wwwapps.ups.com/pickup/processverification?loc=en_GB&IP_schType=ns", data=payload,
+                              headers=headers)
+
+            if response.status_code == 200:
+                flash("UPS Montague Collection Booked!")
+            else:
+                flash("Failed to complete UPS collection. Status Code: {0}\nResponse: {1}".format(response.status_code, response.text))
+
+        elif option == 'option2':
+            # Option 1 logic
+            s = requests.Session()
+
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+                "X-Requested-With":"XMLHttpRequest",
+                "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8",
+                "Accept":"application/json, text/javascript, */*; q=0.01"
+            }
+
+            numberOfPackages = request.form.get('numberOfPackages', '1')
+            weight = request.form.get('weight', '1')
+
+            payload = {
+                "loc": "en_GB",
+                "gotoapp": "",
+                "acctInfoDetails": "",
+                "pickupInfoPageScheme": "",
+                "spbPageSchemeSelection": None,
+                "selectedServices": "[007#002]",
+                "EDITABLE_ACCTNUM": "FALSE",
+                "localeValue": "en_GB",
+                "showPopup": False,
+                "facclosed": False,
+                "destslic": None,
+                "radioShipping": "Y",
+                "tracknumlist": "",
+                "accountnumber": "",
+                "paramAcctZip": "",
+                "company": "Saddiq Haus",
+                "custname": "",
+                "address": "32 Hatton Garden, The Arcade",
+                "room": "",
+                "ROOM": "",
+                "floor": "",
+                "FLOOR": "",
+                "pd2": "London",
+                "pd1": "",
+                "postalcode": "EC1N8DH",
+                "phone": "07584425769",
+                "extension": "",
+                "addrSuggestRadio": "",
+                "repl_name": "",
+                "numberOfPackages":numberOfPackages,
+                "weight":weight,
+                "numberOfPallets": "1",
+                "palletweight": "",
+                "pallettotweight": "1",
+                "length": "",
+                "width": "",
+                "height": "",
+                "palletSizeOpts": "0",
+                "paramServices": "007#002",
+                "radioWeight70": "N",
+                "radioComDocs": "N",
+                "exppickup": "0",
+                "dropoffdate": new_value,
+                "dropHour": "11",
+                "dropMin": "00",
+                "dropAMPM": "AM",
+                "pickupdate": new_value,
+                "readyHours": "5",
+                "readyMinutes": "0",
+                "readyAMPM": "PM",
+                "closeHours": "7",
+                "closeMinutes": "0",
+                "closeAMPM": "PM",
+                "pickuppoint": "Front Door",
+                "paramPickupReference": "",
+                "specialinstructions": "",
+                "expdeliver": "0",
+                "dc1": "",
+                "phoneList": "0",
+                "email1": "saddiq@hotmail.de",
+                "email2": "",
+                "email3": "",
+                "email4": "",
+                "email5": "",
+                "emailmessage": "",
+                "failedemail": ""
+            }
+
+            response = s.post("https://wwwapps.ups.com/pickup/api/service/validate/create", data=payload, headers=headers)
+
+            if response.status_code == 200:
+                print("UPS Collection Info Added...")
+            else:
+                print("Failed to book UPS collection. Status Code:", response.status_code)
+                print("Response:", response.text)
+
+            payload = {
+                'loc': 'en_GB',
+                'gotoapp': '',
+                'acctInfoDetails': '',
+                'pickupInfoPageScheme': '',
+                'spbPageSchemeSelection': None,
+                'selectedServices': "[007#002]",
+                'EDITABLE_ACCTNUM': 'FALSE',
+                'localeValue': 'en_GB',
+                'showPopup': False,
+                'facclosed': False,
+                'destslic': None,
+                'radioShipping': 'Y',
+                'tracknumlist': '',
+                'accountnumber': '',
+                'paramAcctZip': '',
+                'company': 'Saddiq Haus',
+                'custname': '',
+                'address': "32 Hatton Garden, The Arcade",
+                'room': '',
+                'ROOM': '',
+                'floor': '',
+                'FLOOR': '',
+                'pd2': 'London',
+                'pd1': '',
+                'postalcode': 'EC1N8DH',
+                'phone': "07584425769",
+                'extension': '',
+                'addrSuggestRadio': '',
+                'repl_name': '',
+                'numberOfPackages':numberOfPackages,
+                'weight':weight,
+                'numberOfPallets': "1",
+                'palletweight': '',
+                'pallettotweight': '1',
+                'length': '',
+                'width': '',
+                'height': '',
+                'palletSizeOpts': "0",
+                'paramServices': '007#002',
+                'radioWeight70': 'N',
+                'radioComDocs': 'N',
+                'exppickup': "0",
+                'dropoffdate': new_value,
+                'dropHour': "11",
+                'dropMin': '00',
+                'dropAMPM': 'AM',
+                'pickupdate': new_value,
+                'readyHours': "5",
+                'readyMinutes': '0',
+                'readyAMPM': 'PM',
+                'closeHours': "7",
+                'closeMinutes': '0',
+                'closeAMPM': 'PM',
+                'pickuppoint': 'Front Door',
+                'paramPickupReference': '',
+                'specialinstructions': '',
+                'expdeliver': "0",
+                'dc1': '',
+                'phoneList': "0",
+                'email1': "saddiq@hotmail.de",
+                'email2': '',
+                'email3': '',
+                'email4': '',
+                'email5': '',
+                'emailmessage': '',
+                'failedemail': ''
+            }
+
+            response = s.post("https://wwwapps.ups.com/pickup/processinfo?loc=en_GB", data=payload, headers=headers)
+
+            if response.status_code == 200:
+                print("UPS details confirmed...!")
+            else:
+                print("Failed to complete UPS collection. Status Code:", response.status_code)
+                print("Response:", response.text)
+
+            payload = {
+                "loc": "en_GB",
+                "initiatingPage": "verification",
+                "email1opt": 'true',
+                "addToAddressBook": 'false',
+                "email2opt": 'true',
+                "SUBMIT_BUTTON": "Next"
+            }
+
+            response = s.post("https://wwwapps.ups.com/pickup/processverification?loc=en_GB&IP_schType=ns", data=payload,
+                              headers=headers)
+
+            if response.status_code == 200:
+                flash("UPS Hatton Garden Collection Booked!")
+            else:
+                flash("Failed to complete UPS collection. Status Code: {0}\nResponse: {1}".format(response.status_code, response.text))
+
+        elif option == 'option3':
+            s = requests.Session()
+
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+                "X-Requested-With":"XMLHttpRequest",
+                "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8",
+                "Accept":"application/json, text/javascript, */*; q=0.01"
+            }
+
+            numberOfPackages = request.form.get('numberOfPackages', '1')
+            weight = request.form.get('weight', '1')
+
+            payload = {
+                "loc": "en_DE",
+                "gotoapp": "",
+                "acctInfoDetails": "",
+                "pickupInfoPageScheme": "",
+                "spbPageSchemeSelection": None,
+                "selectedServices": "[007#002]",
+                "EDITABLE_ACCTNUM": "FALSE",
+                "localeValue": "en_DE",
+                "showPopup": False,
+                "facclosed": False,
+                "destslic": None,
+                "radioShipping": "Y",
+                "tracknumlist": "",
+                "accountnumber": "",
+                "paramAcctZip": "",
+                "company": "Saddiq Iqbal",
+                "custname": "",
+                "address": "Hansaplatz 2, Azhar Schmuck",
+                "room": "",
+                "ROOM": "",
+                "floor": "",
+                "FLOOR": "",
+                "pd2": "Hamburg",
+                "pd1": "",
+                "postalcode": "20099",
+                "phone": "015777775544",
+                "extension": "",
+                "addrSuggestRadio": "",
+                "repl_name": "",
+                "numberOfPackages":numberOfPackages,
+                "weight":weight,
+                "numberOfPallets": "1",
+                "palletweight": "",
+                "pallettotweight": "1",
+                "length": "",
+                "width": "",
+                "height": "",
+                "palletSizeOpts": "0",
+                "paramServices": "007#002",
+                "radioWeight70": "N",
+                "radioComDocs": "N",
+                "exppickup": "0",
+                "dropoffdate": new_value,
+                "dropHour": "11",
+                "dropMin": "00",
+                "dropAMPM": "AM",
+                "pickupdate": new_value,
+                "readyHours": "3",
+                "readyMinutes": "30",
+                "readyAMPM": "PM",
+                "closeHours": "8",
+                "closeMinutes": "0",
+                "closeAMPM": "PM",
+                "pickuppoint": "Front Door",
+                "paramPickupReference": "",
+                "specialinstructions": "",
+                "expdeliver": "0",
+                "dc1": "",
+                "phoneList": "0",
+                "email1": "saddiq@hotmail.de",
+                "email2": "",
+                "email3": "",
+                "email4": "",
+                "email5": "",
+                "emailmessage": "",
+                "failedemail": ""
+            }
+
+            response = s.post("https://wwwapps.ups.com/pickup/api/service/validate/create", data=payload, headers=headers)
+
+            if response.status_code == 200:
+                print("UPS Collection Info Added...")
+            else:
+                print("Failed to book UPS collection. Status Code:", response.status_code)
+                print("Response:", response.text)
+
+            payload = {
+                'loc': 'en_DE',
+                'gotoapp': '',
+                'acctInfoDetails': '',
+                'pickupInfoPageScheme': '',
+                'spbPageSchemeSelection': None,
+                'selectedServices': "[007#002]",
+                'EDITABLE_ACCTNUM': 'FALSE',
+                'localeValue': 'en_DE',
+                'showPopup': False,
+                'facclosed': False,
+                'destslic': None,
+                'radioShipping': 'Y',
+                'tracknumlist': '',
+                'accountnumber': '',
+                'paramAcctZip': '',
+                'company': 'Saddiq Iqbal',
+                'custname': '',
+                'address': "Hansaplatz 2, Azhar Schmuck",
+                'room': '',
+                'ROOM': '',
+                'floor': '',
+                'FLOOR': '',
+                'pd2': 'Hamburg',
+                'pd1': '',
+                'postalcode': '20099',
+                'phone': "015777775544",
+                'extension': '',
+                'addrSuggestRadio': '',
+                'repl_name': '',
+                'numberOfPackages':numberOfPackages,
+                'weight':weight,
+                'numberOfPallets': "1",
+                'palletweight': '',
+                'pallettotweight': '1',
+                'length': '',
+                'width': '',
+                'height': '',
+                'palletSizeOpts': "0",
+                'paramServices': '007#002',
+                'radioWeight70': 'N',
+                'radioComDocs': 'N',
+                'exppickup': "0",
+                'dropoffdate': new_value,
+                'dropHour': "11",
+                'dropMin': '00',
+                'dropAMPM': 'AM',
+                'pickupdate': new_value,
+                'readyHours': "3",
+                'readyMinutes': '30',
+                'readyAMPM': 'PM',
+                'closeHours': "8",
+                'closeMinutes': '0',
+                'closeAMPM': 'PM',
+                'pickuppoint': 'Front Door',
+                'paramPickupReference': '',
+                'specialinstructions': '',
+                'expdeliver': "0",
+                'dc1': '',
+                'phoneList': "0",
+                'email1': "saddiq@hotmail.de",
+                'email2': '',
+                'email3': '',
+                'email4': '',
+                'email5': '',
+                'emailmessage': '',
+                'failedemail': ''
+            }
+
+            response = s.post("https://wwwapps.ups.com/pickup/processinfo?loc=en_DE", data=payload, headers=headers)
+
+            if response.status_code == 200:
+                print("UPS details confirmed...!")
+            else:
+                print("Failed to complete UPS collection. Status Code:", response.status_code)
+                print("Response:", response.text)
+
+            payload = {
+                "loc": "en_DE",
+                "initiatingPage": "verification",
+                "email1opt": 'true',
+                "addToAddressBook": 'false',
+                "email2opt": 'true',
+                "SUBMIT_BUTTON": "Next"
+            }
+
+            response = s.post("https://wwwapps.ups.com/pickup/processverification?loc=en_DE&IP_schType=ns", data=payload,
+                              headers=headers)
+
+            if response.status_code == 200:
+                flash("UPS Hansaplatz Collection Booked!")
+            else:
+                flash("Failed to complete UPS collection. Status Code: {0}\nResponse: {1}".format(response.status_code, response.text))
+
+        elif option == 'option4':
+            # Option 1 logic
+            s = requests.Session()
+
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+                "X-Requested-With":"XMLHttpRequest",
+                "Content-Type":"application/x-www-form-urlencoded; charset=UTF-8",
+                "Accept":"application/json, text/javascript, */*; q=0.01"
+            }
+
+            numberOfPackages = request.form.get('numberOfPackages', '1')
+            weight = request.form.get('weight', '1')
+
+            payload = {
+                "loc": "en_GB",
+                "gotoapp": "",
+                "acctInfoDetails": "",
+                "pickupInfoPageScheme": "",
+                "spbPageSchemeSelection": None,
+                "selectedServices": None,
+                "EDITABLE_ACCTNUM": "FALSE",
+                "localeValue": "en_GB",
+                "showPopup": False,
+                "facclosed": False,
+                "destslic": None,
+                "radioShipping": "Y",
+                "tracknumlist": "",
+                "accountnumber": "",
+                "paramAcctZip": "",
+                "company": "Merton Convenience",
+                "custname": "",
+                "address": "115 Merton Road",
+                "room": "",
+                "ROOM": "",
+                "floor": "",
+                "FLOOR": "",
+                "pd2": "London",
+                "pd1": "",
+                "postalcode": "SW191ED",
+                "phone": "07584425769",
+                "extension": "",
+                "addrSuggestRadio": "",
+                "repl_name": "",
+                "numberOfPackages":numberOfPackages,
+                "weight":weight,
+                "numberOfPallets": "1",
+                "palletweight": "",
+                "pallettotweight": "1",
+                "length": "",
+                "width": "",
+                "height": "",
+                "palletSizeOpts": "0",
+                "paramServices": "007#002",
+                "radioWeight70": "N",
+                "radioComDocs": "N",
+                "exppickup": "0",
+                "dropoffdate": new_value,
+                "dropHour": "11",
+                "dropMin": "00",
+                "dropAMPM": "AM",
+                "pickupdate": new_value,
+                "readyHours": "3",
+                "readyMinutes": "0",
+                "readyAMPM": "PM",
+                "closeHours": "6",
+                "closeMinutes": "0",
+                "closeAMPM": "PM",
+                "pickuppoint": "Front Door",
+                "paramPickupReference": "",
+                "specialinstructions": "",
+                "expdeliver": "0",
+                "dc1": "",
+                "phoneList": "0",
+                "email1": "saddiq@hotmail.de",
+                "email2": "",
+                "email3": "",
+                "email4": "",
+                "email5": "",
+                "emailmessage": "",
+                "failedemail": ""
+            }
+
+            response = s.post("https://wwwapps.ups.com/pickup/api/service/validate/create", data=payload, headers=headers)
+
+            if response.status_code == 200:
+                print("UPS Collection Info Added...")
+            else:
+                print("Failed to book UPS collection. Status Code:", response.status_code)
+                print("Response:", response.text)
+
+            payload = {
+                'loc': 'en_GB',
+                'gotoapp': '',
+                'acctInfoDetails': '',
+                'pickupInfoPageScheme': '',
+                'spbPageSchemeSelection': None,
+                'selectedServices': None,
+                'EDITABLE_ACCTNUM': 'FALSE',
+                'localeValue': 'en_GB',
+                'showPopup': False,
+                'facclosed': False,
+                'destslic': None,
+                'radioShipping': 'Y',
+                'tracknumlist': '',
+                'accountnumber': '',
+                'paramAcctZip': '',
+                'company': 'Merton Convenience',
+                'custname': '',
+                'address': "115 Merton Road",
+                'room': '',
+                'ROOM': '',
+                'floor': '',
+                'FLOOR': '',
+                'pd2': 'London',
+                'pd1': '',
+                'postalcode': 'SW191ED',
+                'phone': "07584425769",
+                'extension': '',
+                'addrSuggestRadio': '',
+                'repl_name': '',
+                'numberOfPackages':numberOfPackages,
+                'weight':weight,
+                'numberOfPallets': "1",
+                'palletweight': '',
+                'pallettotweight': '1',
+                'length': '',
+                'width': '',
+                'height': '',
+                'palletSizeOpts': "0",
+                'paramServices': '007#002',
+                'radioWeight70': 'N',
+                'radioComDocs': 'N',
+                'exppickup': "0",
+                'dropoffdate': new_value,
+                'dropHour': "11",
+                'dropMin': '00',
+                'dropAMPM': 'AM',
+                'pickupdate': new_value,
+                'readyHours': "3",
+                'readyMinutes': '0',
+                'readyAMPM': 'PM',
+                'closeHours': "6",
+                'closeMinutes': '0',
+                'closeAMPM': 'PM',
+                'pickuppoint': 'Front Door',
+                'paramPickupReference': '',
+                'specialinstructions': '',
+                'expdeliver': "0",
+                'dc1': '',
+                'phoneList': "0",
+                'email1': "saddiq@hotmail.de",
+                'email2': '',
+                'email3': '',
+                'email4': '',
+                'email5': '',
+                'emailmessage': '',
+                'failedemail': ''
+            }
+
+            response = s.post("https://wwwapps.ups.com/pickup/processinfo?loc=en_GB", data=payload, headers=headers)
+
+            if response.status_code == 200:
+                print("UPS details confirmed...!")
+            else:
+                print("Failed to complete UPS collection. Status Code:", response.status_code)
+                print("Response:", response.text)
+
+            payload = {
+                "loc": "en_GB",
+                "initiatingPage": "verification",
+                "email1opt": 'true',
+                "addToAddressBook": 'false',
+                "email2opt": 'true',
+                "SUBMIT_BUTTON": "Next"
+            }
+
+            response = s.post("https://wwwapps.ups.com/pickup/processverification?loc=en_GB&IP_schType=ns", data=payload,
+                              headers=headers)
+
+            if response.status_code == 200:
+                flash("UPS 115 Merton Collection Booked!")
+            else:
+                flash("Failed to complete UPS collection. Status Code: {0}\nResponse: {1}".format(response.status_code, response.text))
+    # Prepopulated values for the form
+    prepopulated_values = {
+        'weight': '1',
+        'numberOfPackages': '1',
+    }
+
+    return render_template('index.html', **prepopulated_values)
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
